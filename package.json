@@ -1,0 +1,33 @@
+{
+  "name": "@epam/changed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib",
+  "typings": "src/index.ts",
+  "scripts": {
+    "test": "npm run t",
+    "clean": "rm -rf lib",
+    "build": "npm run clean && npm run compile",
+    "compile": "tsc",
+    "compile:w": "tsc -w",
+    "t": "npm run mocha -- src/*.spec.ts",
+    "test:w": "npm run mocha -- --watch-extensions ts --watch src/**/*.spec.ts",
+    "mocha": "ts-node -F node_modules/mocha/bin/_mocha",
+    "release": "npm run test && npm run build && np"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.27",
+    "mocha": "^3.4.2",
+    "ts-node": "^3.0.4",
+    "typescript": "^2.3.4"
+  },
+  "dependencies": {
+    "@epam/inject": "^1.0.0"
+  }
+}
