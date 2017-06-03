@@ -25,7 +25,12 @@ function dependenciesData(cwd?: string): Dict {
 }
 
 function dbDependenciesData(dbFile: string) {
-    return JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+    try {
+        var result = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+    } catch (err) {
+        result = null;
+    }
+    return result;
 }
 
 export function dependencies(dbFile?: string, cwd?: string): Result {
