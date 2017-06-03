@@ -1,23 +1,17 @@
 import { inject } from '@epam/inject';
-import { tmpdir as osTmpdir } from 'os';
-import { basename } from 'path';
+import { dbFileName } from './utils';
 import fs = require('fs');
 
-declare type FileResult = {
+declare type Result = {
     result: boolean;
     update: () => void;
 };
-
-function dbFileName(targetFile: string) {
-    const tmpdir = inject<typeof osTmpdir>('tmpdir', () => osTmpdir);
-    return `${tmpdir()}/${encodeURI(targetFile)}`;
-}
 
 function fileMtime(targetFile: string) {
     return fs.statSync(targetFile).mtime.getTime();
 }
 
-export function file(targetFile: string, dbFile?: string): FileResult {
+export function file(targetFile: string, dbFile?: string): Result {
     const existsSync = inject<typeof fs.existsSync>('existsSync', () => fs.existsSync);
     if (!(targetFile && existsSync(targetFile))) {
         throw new TypeError(`Target file does not exists ${targetFile}`);
