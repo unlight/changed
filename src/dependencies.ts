@@ -32,7 +32,7 @@ export function dependencies(dbFile?: string, cwd?: string): Result {
     const existsSync = inject('existsSync', () => fs.existsSync);
     const update = () => {
         const writeFileSync = inject('writeFileSync', () => fs.writeFileSync);
-        writeFileSync(dbFile, data);
+        writeFileSync(dbFile, JSON.stringify(data, null, 2));
     };
     if (!existsSync(dbFile)) {
         return { result: true, update, initial: true, diff: null };
