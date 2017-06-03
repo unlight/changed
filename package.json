@@ -14,7 +14,7 @@
     "t": "npm run mocha -- src/*.spec.ts",
     "test:w": "npm run mocha -- --watch-extensions ts --watch src/**/*.spec.ts",
     "mocha": "ts-node -F node_modules/mocha/bin/_mocha",
-    "release": "npm run test && npm run build && np"
+    "release": "npm run build && np"
   },
   "publishConfig": {
     "access": "public"
