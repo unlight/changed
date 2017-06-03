@@ -1,6 +1,6 @@
 {
   "name": "@epam/changed",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Check if file was changed",
   "main": "lib",
   "typings": "src/index.ts",
