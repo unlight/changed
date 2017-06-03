@@ -16,7 +16,11 @@ declare type Result = {
 };
 
 function dependenciesData(cwd?: string): Dict {
-    const pkg = readPkg.sync(cwd);
+    try {
+        var pkg = readPkg.sync(cwd);
+    } catch (err) {
+        return null;
+    }
     return pkg.dependencies;
 }
 
@@ -29,6 +33,7 @@ export function dependencies(dbFile?: string, cwd?: string): Result {
     if (!dbFile) {
         dbFile = dbFileName(resolve('pkg.dependencies.json'));
     }
+    // if (data)
     const existsSync = inject('existsSync', () => fs.existsSync);
     const update = () => {
         const writeFileSync = inject('writeFileSync', () => fs.writeFileSync);
@@ -38,7 +43,11 @@ export function dependencies(dbFile?: string, cwd?: string): Result {
         return { result: true, update, initial: true, diff: null };
     }
     const dbData = inject('dbDependenciesData', () => dbDependenciesData)(dbFile);
-    const diff = objectDiff(dbData, data);
-    let result = Object.keys(diff).length > 0;
-    return { result, update, diff, initial: false };
+    let partialResult = { diff: null, result: true, initial: true };
+    if (dbData && typeof dbData === 'object') {
+        const diff = objectDiff(dbData, data);
+        const result = Object.keys(diff).length > 0;
+        partialResult = { diff, result, initial: false };
+    }
+    return { ...partialResult, update };
 }

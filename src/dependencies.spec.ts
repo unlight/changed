@@ -41,19 +41,27 @@ describe('dependencies', () => {
         injector.mock('dbDependenciesData', () => () => ({ ...packageDeps }));
         const { result, update, initial, diff } = dependencies('db');
         assert(initial !== true, 'initial expected to be not true');
-        assert(result === true, 'initial expected to be true');
+        assert(result === true, 'result expected to be true');
         assert.deepEqual(diff, { b: '2' }, 'diff must contain b:2');
     });
 
     it('update should write string data', () => {
-        let packageDeps = { a: '1' };
-        injector.mock('dependenciesData', () => () => packageDeps);
+        injector.mock('dependenciesData', () => () => ({ a: '1' }));
         injector.mock('existsSync', () => () => false);
         injector.mock('writeFileSync', () => (dbFile, data) => {
             assert.equal(typeof data, 'string', 'data must be typeof string');
         });
         const { result, update, initial } = dependencies('db');
         update();
+    });
+
+    it('if data dependencies fails', () => {
+        injector.mock('dependenciesData', () => () => ({ a: '1' }));
+        injector.mock('dbDependenciesData', () => () => null);
+        injector.mock('existsSync', () => () => true);
+        const { result, update, initial } = dependencies('db');
+        assert(initial === true, 'initial expected to be true');
+        assert(result === true, 'result expected to be true');
     });
 
 });
