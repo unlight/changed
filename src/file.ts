@@ -1,10 +1,7 @@
 import { inject } from '@epam/inject';
-import { existsSync as fsExistsSync } from 'fs';
-import { statSync as fsStatSync } from 'fs';
-import { writeFileSync as fsWriteFileSync } from 'fs';
-import { readFileSync as fsReadFileSync } from 'fs';
 import { tmpdir as osTmpdir } from 'os';
 import { basename } from 'path';
+import fs = require('fs');
 
 declare type FileResult = {
     result: boolean;
@@ -16,12 +13,12 @@ function dbFileName(targetFile: string) {
     return `${tmpdir()}/${encodeURI(targetFile)}`;
 }
 
-function getFileMtime(targetFile: string) {
-    return fsStatSync(targetFile).mtime.getTime();
+function fileMtime(targetFile: string) {
+    return fs.statSync(targetFile).mtime.getTime();
 }
 
 export function file(targetFile: string, dbFile?: string): FileResult {
-    const existsSync = inject<typeof fsExistsSync>('existsSync', () => fsExistsSync);
+    const existsSync = inject<typeof fs.existsSync>('existsSync', () => fs.existsSync);
     if (!(targetFile && existsSync(targetFile))) {
         throw new TypeError(`Target file does not exists ${targetFile}`);
     }
@@ -29,15 +26,15 @@ export function file(targetFile: string, dbFile?: string): FileResult {
         dbFile = dbFileName(targetFile);
     }
     const update = () => {
-        const writeFileSync = inject<typeof fsWriteFileSync>('writeFileSync', () => fsWriteFileSync);
-        const mtime = inject('getFileMtime', () => getFileMtime)(targetFile);
+        const writeFileSync = inject<typeof fs.writeFileSync>('writeFileSync', () => fs.writeFileSync);
+        const mtime = inject('fileMtime', () => fileMtime)(targetFile);
         writeFileSync(dbFile, mtime);
     };
     if (!existsSync(dbFile)) {
         return { result: true, update };
     }
-    const mtime = inject('getFileMtime', () => getFileMtime)(targetFile);
-    const readFileSync = inject<typeof fsReadFileSync>('readFileSync', () => fsReadFileSync);
+    const mtime = inject('fileMtime', () => fileMtime)(targetFile);
+    const readFileSync = inject<typeof fs.readFileSync>('readFileSync', () => fs.readFileSync);
     const prevMtime = Number(readFileSync(dbFile, 'utf8'));
     if (prevMtime !== mtime) {
         return { result: true, update };

@@ -7,9 +7,10 @@
   "scripts": {
     "test": "npm run t",
     "clean": "rm -rf lib",
-    "build": "npm run clean && npm run compile",
+    "build": "npm run compile",
     "compile": "tsc",
     "compile:w": "tsc -w",
+    "precompile": "npm run clean",
     "t": "npm run mocha -- src/*.spec.ts",
     "test:w": "npm run mocha -- --watch-extensions ts --watch src/**/*.spec.ts",
     "mocha": "ts-node -F node_modules/mocha/bin/_mocha",

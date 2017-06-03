@@ -11,7 +11,7 @@ beforeEach(() => {
     injector.mock('statSync', () => { throw 'statSync not mocked' });
     injector.mock('writeFileSync', () => { throw 'writeFileSync not mocked' });
     injector.mock('readFileSync', () => { throw 'readFileSync not mocked' });
-    injector.mock('getFileMtime', () => { throw 'getFileMtime not mocked' });
+    injector.mock('fileMtime', () => { throw 'fileMtime not mocked' });
 });
 
 it('if target file do not exists throw error', () => {
@@ -33,7 +33,7 @@ it('if db file do not exists result should be true', () => {
 
 it('filemtime same result should be false', () => {
     injector.mock('existsSync', () => () => true);
-    injector.mock('getFileMtime', () => (file) => {
+    injector.mock('fileMtime', () => (file) => {
         if (file === 'target') return 100;
         return Math.random();
     });
@@ -47,7 +47,7 @@ it('filemtime same result should be false', () => {
 
 it('filemtime is different result should be true', () => {
     injector.mock('existsSync', () => () => true);
-    injector.mock('getFileMtime', () => (file) => {
+    injector.mock('fileMtime', () => (file) => {
         if (file === 'target') return 100;
         return { mtime: { getTime: () => Math.random() } };
     });
