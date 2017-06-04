@@ -12,7 +12,6 @@ describe('file', () => {
         injector.clear();
         injector.mock('existsSync', () => { throw 'existsSync not mocked' });
         injector.mock('statSync', () => { throw 'statSync not mocked' });
-        injector.mock('writeFileSync', () => { throw 'writeFileSync not mocked' });
         injector.mock('readFileSync', () => { throw 'readFileSync not mocked' });
         injector.mock('fileMtime', () => { throw 'fileMtime not mocked' });
     });

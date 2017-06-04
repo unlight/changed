@@ -23,6 +23,7 @@
   "keywords": [],
   "license": "MIT",
   "devDependencies": {
+    "@types/mkdirp": "^0.3.29",
     "@types/mocha": "^2.2.41",
     "@types/node": "^7.0.27",
     "mocha": "^3.4.2",
@@ -32,6 +33,7 @@
   "dependencies": {
     "@epam/inject": "^1.0.0",
     "filenamify": "^2.0.0",
+    "mkdirp": "^0.5.1",
     "object-diff": "0.0.4",
     "read-pkg": "^2.0.0"
   },

@@ -1,6 +1,6 @@
 import { inject } from '@epam/inject';
 import { tmpdir as osTmpdir } from 'os';
-import { dbFileName } from './utils';
+import { dbFileName, saveFile } from './utils';
 import fs = require('fs');
 import { resolve } from 'path';
 const readPkg = require('read-pkg');
@@ -38,11 +38,9 @@ export function dependencies(dbFile?: string, cwd?: string): Result {
     if (!dbFile) {
         dbFile = dbFileName(resolve('pkg.dependencies.json'));
     }
-    // if (data)
     const existsSync = inject('existsSync', () => fs.existsSync);
     const update = () => {
-        const writeFileSync = inject('writeFileSync', () => fs.writeFileSync);
-        writeFileSync(dbFile, JSON.stringify(data, null, 2));
+        inject('saveFile', () => saveFile)(dbFile, JSON.stringify(data, null, 2));
     };
     if (!existsSync(dbFile)) {
         return { result: true, update, initial: true, diff: null };

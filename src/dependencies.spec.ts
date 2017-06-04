@@ -48,7 +48,7 @@ describe('dependencies', () => {
     it('update should write string data', () => {
         injector.mock('dependenciesData', () => () => ({ a: '1' }));
         injector.mock('existsSync', () => () => false);
-        injector.mock('writeFileSync', () => (dbFile, data) => {
+        injector.mock('saveFile', () => (dbFile, data) => {
             assert.equal(typeof data, 'string', 'data must be typeof string');
         });
         const { result, update, initial } = dependencies('db');

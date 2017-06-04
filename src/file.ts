@@ -1,5 +1,5 @@
 import { inject } from '@epam/inject';
-import { dbFileName } from './utils';
+import { dbFileName, saveFile } from './utils';
 import fs = require('fs');
 
 declare type Result = {
@@ -12,7 +12,7 @@ function fileMtime(targetFile: string) {
 }
 
 export function file(targetFile: string, dbFile?: string): Result {
-    const existsSync = inject<typeof fs.existsSync>('existsSync', () => fs.existsSync);
+    const existsSync = inject('existsSync', () => fs.existsSync);
     if (!(targetFile && existsSync(targetFile))) {
         throw new TypeError(`Target file does not exists ${targetFile}`);
     }
@@ -20,15 +20,14 @@ export function file(targetFile: string, dbFile?: string): Result {
         dbFile = dbFileName(targetFile);
     }
     const update = () => {
-        const writeFileSync = inject<typeof fs.writeFileSync>('writeFileSync', () => fs.writeFileSync);
         const mtime = inject('fileMtime', () => fileMtime)(targetFile);
-        writeFileSync(dbFile, mtime);
+        inject('saveFile', () => saveFile)(dbFile, String(mtime));
     };
     if (!existsSync(dbFile)) {
         return { result: true, update };
     }
     const mtime = inject('fileMtime', () => fileMtime)(targetFile);
-    const readFileSync = inject<typeof fs.readFileSync>('readFileSync', () => fs.readFileSync);
+    const readFileSync = inject('readFileSync', () => fs.readFileSync);
     const prevMtime = Number(readFileSync(dbFile, 'utf8'));
     if (prevMtime !== mtime) {
         return { result: true, update };
