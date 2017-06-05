@@ -42,7 +42,7 @@ describe('dependencies', () => {
         const { result, update, initial, diff } = dependencies('db');
         assert(initial !== true, 'initial expected to be not true');
         assert(result === true, 'result expected to be true');
-        assert.deepEqual(diff, { b: '2' }, 'diff must contain b:2');
+        assert.deepEqual(diff, { b: { $set: '2' } }, 'diff must contain b:2');
     });
 
     it('update should write string data', () => {
@@ -61,6 +61,15 @@ describe('dependencies', () => {
         injector.mock('existsSync', () => () => true);
         const { result, update, initial } = dependencies('db');
         assert(initial === true, 'initial expected to be true');
+        assert(result === true, 'result expected to be true');
+    });
+
+    it('if data dependencies removed', () => {
+        injector.mock('dependenciesData', () => () => ({ a: '1' }));
+        injector.mock('dbDependenciesData', () => () => ({ a: '1', b: '2' }));
+        injector.mock('existsSync', () => () => true);
+        const { result, update, initial, diff } = dependencies('db');
+        assert(initial === false, 'initial expected to be true');
         assert(result === true, 'result expected to be true');
     });
 

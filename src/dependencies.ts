@@ -4,9 +4,9 @@ import { dbFileName, saveFile } from './utils';
 import fs = require('fs');
 import { resolve } from 'path';
 const readPkg = require('read-pkg');
-const objectDiff = require('object-diff');
+const differenceJson = require('difference-json');
 
-declare type Dict = { [name: string]: string };
+declare type Dict = { [name: string]: { $set: any, $was: any } };
 
 declare type Result = {
     result: boolean;
@@ -48,8 +48,8 @@ export function dependencies(dbFile?: string, cwd?: string): Result {
     const dbData = inject('dbDependenciesData', () => dbDependenciesData)(dbFile);
     let partialResult = { diff: null, result: true, initial: true };
     if (dbData && typeof dbData === 'object') {
-        const diff = objectDiff(dbData, data);
-        const result = Object.keys(diff).length > 0;
+        const diff = differenceJson(dbData, data);
+        let result = Object.keys(diff).length > 0;
         partialResult = { diff, result, initial: false };
     }
     return { ...partialResult, update };

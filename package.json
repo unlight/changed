@@ -1,7 +1,7 @@
 {
   "name": "@epam/changed",
   "version": "1.6.0",
-  "description": "Check if file was changed",
+  "description": "Designed to track dependencies in package.json and check file modification time",
   "main": "lib",
   "typings": "src/index.ts",
   "scripts": {
@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@epam/inject": "^1.0.0",
+    "difference-json": "^1.0.6",
     "filenamify": "^2.0.0",
     "mkdirp": "^0.5.1",
     "object-diff": "0.0.4",
