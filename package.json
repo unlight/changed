@@ -1,6 +1,6 @@
 {
   "name": "@epam/changed",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Designed to track dependencies in package.json and check file modification time",
   "main": "lib",
   "typings": "src/index.ts",
