@@ -1,4 +1,4 @@
-changed
+is-changed
 ---
 Designed to track dependencies in package.json and check file modification time.
 Result is saved to local files, but not memory.
@@ -27,7 +27,7 @@ type Dict = { [name: string]: { $set: any, $was: any } };
 EXAMPLES
 ---
 ```
-const changed = require('@epam/changed');
+const changed = require('is-changed');
 const Path = require('path');
 const buildPath = 'dist';
 ```
