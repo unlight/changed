@@ -1,5 +1,5 @@
 {
-  "name": "@epam/changed",
+  "name": "is-changed",
   "version": "2.1.1",
   "description": "Designed to track dependencies in package.json and check file modification time",
   "main": "lib",
@@ -23,15 +23,15 @@
   "keywords": [],
   "license": "MIT",
   "devDependencies": {
-    "@types/mkdirp": "^0.3.29",
-    "@types/mocha": "^2.2.41",
-    "@types/node": "^7.0.27",
-    "mocha": "^3.4.2",
-    "ts-node": "^3.0.4",
-    "typescript": "^2.3.4"
+    "@types/mkdirp": "^0.5.1",
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.0.26",
+    "mocha": "^3.5.0",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.2"
   },
   "dependencies": {
-    "@epam/inject": "^1.0.0",
+    "@epam/inject": "^1.0.1",
     "difference-json": "^1.0.6",
     "filenamify": "^2.0.0",
     "mkdirp": "^0.5.1",
