@@ -1,4 +1,4 @@
-import { inject } from '@epam/inject';
+import { inject } from 'njct';
 import { tmpdir as osTmpdir } from 'os';
 import { dbFileName, saveFile } from './utils';
 import fs = require('fs');

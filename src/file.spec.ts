@@ -1,5 +1,5 @@
 import assert = require('assert');
-import { inject, injector } from '@epam/inject';
+import { inject, injector } from 'njct';
 import { file } from './';
 
 describe('file', () => {

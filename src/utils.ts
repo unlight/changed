@@ -1,4 +1,4 @@
-import { inject } from '@epam/inject';
+import { inject } from 'njct';
 import fs = require('fs');
 import os = require('os');
 import { dirname } from 'path';
