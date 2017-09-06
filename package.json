@@ -8,14 +8,14 @@
     "test": "npm run t",
     "clean": "rm -rf lib",
     "build": "npm run compile",
+    "precompile": "npm run clean",
     "compile": "tsc",
     "compile:w": "tsc -w",
-    "precompile": "npm run clean",
     "t": "npm run mocha -- src/*.spec.ts",
     "test:w": "npm run mocha -- --watch-extensions ts --watch src/**/*.spec.ts",
     "mocha": "ts-node -F node_modules/mocha/bin/_mocha",
     "debug": "inspect node_modules/ts-node/dist/_bin.js -F \"node_modules/mocha/bin/_mocha\" \"src/*.spec.ts\"",
-    "release": "npm run build && np"
+    "release": "npm run build && np --no-publish && npm publish"
   },
   "publishConfig": {
     "access": "public"
