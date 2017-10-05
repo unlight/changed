@@ -1,12 +1,12 @@
 {
   "name": "is-changed",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "Designed to track dependencies in package.json and check file modification time",
   "main": "lib",
   "typings": "src/index.ts",
   "scripts": {
     "test": "npm run t",
-    "clean": "rm -rf lib",
+    "clean": "rm-cli lib/*",
     "build": "npm run compile",
     "precompile": "npm run clean",
     "compile": "tsc",
@@ -15,7 +15,7 @@
     "test:w": "npm run mocha -- --watch-extensions ts --watch src/**/*.spec.ts",
     "mocha": "ts-node -F node_modules/mocha/bin/_mocha",
     "debug": "inspect node_modules/ts-node/dist/_bin.js -F \"node_modules/mocha/bin/_mocha\" \"src/*.spec.ts\"",
-    "release": "npm run build && np --no-publish && npm publish"
+    "release": "npm run build && npm publish"
   },
   "publishConfig": {
     "access": "public"
@@ -27,6 +27,7 @@
     "@types/mocha": "^2.2.42",
     "@types/node": "^8.0.26",
     "mocha": "^3.5.0",
+    "rm-cli": "^1.2.1",
     "ts-node": "^3.3.0",
     "typescript": "^2.5.2"
   },
