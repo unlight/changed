@@ -10,17 +10,17 @@ describe('file', () => {
 
     beforeEach(() => {
         injector.clear();
-        injector.mock('existsSync', () => { throw 'existsSync not mocked' });
-        injector.mock('statSync', () => { throw 'statSync not mocked' });
-        injector.mock('readFileSync', () => { throw 'readFileSync not mocked' });
-        injector.mock('fileMtime', () => { throw 'fileMtime not mocked' });
+        injector.mock('existsSync', () => { throw 'existsSync not mocked'; });
+        injector.mock('statSync', () => { throw 'statSync not mocked'; });
+        injector.mock('readFileSync', () => { throw 'readFileSync not mocked'; });
+        injector.mock('fileMtime', () => { throw 'fileMtime not mocked'; });
     });
 
     it('if target file do not exists throw error', () => {
         injector.mock('existsSync', () => () => false);
         assert.throws(() => {
             file('');
-        })
+        });
     });
 
     it('if db file do not exists result should be true', () => {

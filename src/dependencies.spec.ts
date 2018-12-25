@@ -10,9 +10,9 @@ describe('dependencies', () => {
 
     beforeEach(() => {
         injector.clear();
-        injector.mock('dependenciesData', () => { throw 'dependenciesData not mocked' });
-        injector.mock('existsSync', () => { throw 'existsSync not mocked' });
-        injector.mock('dbDependenciesData', () => { throw 'dbDependenciesData not mocked' });
+        injector.mock('dependenciesData', () => { throw 'dependenciesData not mocked'; });
+        injector.mock('existsSync', () => { throw 'existsSync not mocked'; });
+        injector.mock('dbDependenciesData', () => { throw 'dbDependenciesData not mocked'; });
     });
 
     it('initial case when db is not exists', () => {
