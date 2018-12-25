@@ -21,7 +21,8 @@ export function file(targetFile: string, dbFile?: string): Result {
     }
     const update = () => {
         const mtime = inject('fileMtime', () => fileMtime)(targetFile);
-        inject('saveFile', () => saveFile)(dbFile, String(mtime));
+        const saveFileImpl = inject('saveFile', () => saveFile);
+        saveFileImpl(dbFile!, String(mtime));
     };
     if (!existsSync(dbFile)) {
         return { result: true, update };
@@ -32,5 +33,5 @@ export function file(targetFile: string, dbFile?: string): Result {
     if (prevMtime !== mtime) {
         return { result: true, update };
     }
-    return { result: false, update: () => { } };
+    return { result: false, update: Function };
 }

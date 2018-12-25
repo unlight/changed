@@ -1,5 +1,4 @@
 import { inject } from 'njct';
-import { tmpdir as osTmpdir } from 'os';
 import { dbFileName, saveFile } from './utils';
 import fs = require('fs');
 import { resolve } from 'path';
@@ -15,10 +14,10 @@ declare type Result = {
     diff: Dict | null;
 };
 
-function dependenciesData(cwd?: string): Dict {
+function dependenciesData(cwd?: string): Dict | null {
     try {
-        var pkg = readPkg.sync(cwd);
-    } catch (err) {
+        var pkg = readPkg.sync(cwd); // tslint:disable-line prefer-const
+    } catch (error) {
         return null;
     }
     return pkg.dependencies;
@@ -27,7 +26,7 @@ function dependenciesData(cwd?: string): Dict {
 function dbDependenciesData(dbFile: string) {
     try {
         var result = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
-    } catch (err) {
+    } catch (error) {
         result = null;
     }
     return result;
@@ -40,7 +39,8 @@ export function dependencies(dbFile?: string, cwd?: string): Result {
     }
     const existsSync = inject('existsSync', () => fs.existsSync);
     const update = () => {
-        inject('saveFile', () => saveFile)(dbFile, JSON.stringify(data, null, 2));
+        const saveFileImpl = inject('saveFile', () => saveFile);
+        saveFileImpl(dbFile!, JSON.stringify(data, null, 2));
     };
     if (!existsSync(dbFile)) {
         return { result: true, update, initial: true, diff: null };
@@ -49,7 +49,7 @@ export function dependencies(dbFile?: string, cwd?: string): Result {
     let partialResult = { diff: null, result: true, initial: true };
     if (dbData && typeof dbData === 'object') {
         const diff = differenceJson(dbData, data);
-        let result = Object.keys(diff).length > 0;
+        const result = Object.keys(diff).length > 0;
         partialResult = { diff, result, initial: false };
     }
     return { ...partialResult, update };

@@ -10,10 +10,10 @@ describe('file', () => {
 
     beforeEach(() => {
         injector.clear();
-        injector.mock('existsSync', () => { throw 'existsSync not mocked'; });
-        injector.mock('statSync', () => { throw 'statSync not mocked'; });
-        injector.mock('readFileSync', () => { throw 'readFileSync not mocked'; });
-        injector.mock('fileMtime', () => { throw 'fileMtime not mocked'; });
+        injector.mock('existsSync', () => { throw new Error('existsSync not mocked'); });
+        injector.mock('statSync', () => { throw new Error('statSync not mocked'); });
+        injector.mock('readFileSync', () => { throw new Error('readFileSync not mocked'); });
+        injector.mock('fileMtime', () => { throw new Error('fileMtime not mocked'); });
     });
 
     it('if target file do not exists throw error', () => {
@@ -26,7 +26,9 @@ describe('file', () => {
     it('if db file do not exists result should be true', () => {
         injector.mock('statSync', () => () => new Date());
         injector.mock('existsSync', () => (file) => {
-            if (file === 'db') return false;
+            if (file === 'db') {
+                return false;
+            }
             return true;
         });
         const { result, update } = file('foo', 'db');
@@ -36,11 +38,15 @@ describe('file', () => {
     it('filemtime same result should be false', () => {
         injector.mock('existsSync', () => () => true);
         injector.mock('fileMtime', () => (file) => {
-            if (file === 'target') return 100;
+            if (file === 'target') {
+                return 100;
+            }
             return Math.random();
         });
         injector.mock('readFileSync', () => (file) => {
-            if (file === 'db') return '100';
+            if (file === 'db') {
+                return '100';
+            }
             return Math.random();
         });
         const { result, update } = file('target', 'db');
@@ -50,11 +56,15 @@ describe('file', () => {
     it('filemtime is different result should be true', () => {
         injector.mock('existsSync', () => () => true);
         injector.mock('fileMtime', () => (file) => {
-            if (file === 'target') return 100;
+            if (file === 'target') {
+                return 100;
+            }
             return { mtime: { getTime: () => Math.random() } };
         });
         injector.mock('readFileSync', () => (file) => {
-            if (file === 'db') return '200';
+            if (file === 'db') {
+                return '200';
+            }
             return Math.random();
         });
         const { result, update } = file('target', 'db');

@@ -10,13 +10,13 @@ describe('dependencies', () => {
 
     beforeEach(() => {
         injector.clear();
-        injector.mock('dependenciesData', () => { throw 'dependenciesData not mocked'; });
-        injector.mock('existsSync', () => { throw 'existsSync not mocked'; });
-        injector.mock('dbDependenciesData', () => { throw 'dbDependenciesData not mocked'; });
+        injector.mock('dependenciesData', () => { throw new Error('dependenciesData not mocked'); });
+        injector.mock('existsSync', () => { throw new Error('existsSync not mocked'); });
+        injector.mock('dbDependenciesData', () => { throw new Error('dbDependenciesData not mocked'); });
     });
 
     it('initial case when db is not exists', () => {
-        let packageDeps = { a: '1' };
+        const packageDeps = { a: '1' };
         injector.mock('dependenciesData', () => () => packageDeps);
         injector.mock('existsSync', () => () => false);
         const { result, update, initial } = dependencies('db');
@@ -25,7 +25,7 @@ describe('dependencies', () => {
     });
 
     it('when db exists but no changes', () => {
-        let packageDeps = { a: '1' };
+        const packageDeps = { a: '1' };
         injector.mock('dependenciesData', () => () => ({ ...packageDeps }));
         injector.mock('existsSync', () => () => true);
         injector.mock('dbDependenciesData', () => () => ({ ...packageDeps }));
@@ -35,7 +35,7 @@ describe('dependencies', () => {
     });
 
     it('when db exists and has changes in pkg dependencies', () => {
-        let packageDeps = { a: '1' };
+        const packageDeps = { a: '1' };
         injector.mock('dependenciesData', () => () => ({ ...packageDeps, b: '2' }));
         injector.mock('existsSync', () => () => true);
         injector.mock('dbDependenciesData', () => () => ({ ...packageDeps }));
