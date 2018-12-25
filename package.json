@@ -1,6 +1,6 @@
 {
   "name": "is-changed",
-  "version": "0.0.0-dev",
+  "version": "2.2.0",
   "description": "Designed to track dependencies in package.json and check file modification time",
   "main": "dist",
   "typings": "dist/index.d.ts",
