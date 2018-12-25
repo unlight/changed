@@ -1,7 +1,12 @@
+# .gitignore
+/node_modules
+/.idea
+/.awcache
+/.vscode
+/.nyc_output
+*.log
 ~*
-/node_modules/
-/package-lock.json
+# .npmignore
 /tsconfig.json
+/.eslintrc.js
 /.editorconfig
-/.npmrc
-/npm-debug.log

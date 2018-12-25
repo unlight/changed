@@ -1,6 +1,9 @@
+/node_modules
+/.idea
+/.awcache
+/.vscode
+/.nyc_output
+*.log
 ~*
-/node_modules/
-/package-lock.json
-/lib/
-/npm-debug.log
-/.npmrc
+/dist/
+/dist_*
