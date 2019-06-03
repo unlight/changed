@@ -9,7 +9,7 @@ declare type Dict = { [name: string]: { $set: any, $was: any } };
 
 declare type Result = {
     result: boolean;
-    update: () => void;
+    update(): void;
     initial: boolean;
     diff: Dict | null;
 };
