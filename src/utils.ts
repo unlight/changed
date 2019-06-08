@@ -5,13 +5,13 @@ import { dirname } from 'path';
 const filenamify = require('filenamify');
 import mkdirp = require('mkdirp');
 
-export function dbFileName(targetFile: string) {
+export function databaseFileName(targetFile: string) {
     const tmpdir = inject('tmpdir', () => os.tmpdir);
     return `${tmpdir()}/${encodeURI(filenamify(targetFile))}`;
 }
 
 export function saveFile(targetFile: string, data: string) {
-    const dir = dirname(targetFile);
-    mkdirp.sync(dir);
+    const directory = dirname(targetFile);
+    mkdirp.sync(directory);
     fs.writeFileSync(targetFile, data);
 }

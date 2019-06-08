@@ -31,6 +31,7 @@ module.exports = {
         "plugin:jest/recommended",
     ],
     "rules": {
+        "no-unused-vars": 0,
         "quotes": [1, "single", { "allowTemplateLiterals": true }],
         "semi": [1, "always"],
         // wix-editor

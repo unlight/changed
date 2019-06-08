@@ -47,6 +47,8 @@
     "no-reserved-keywords": false,
     "no-increment-decrement": false,
     "no-unnecessary-bind": false,
+    "non-literal-fs-path": false,
+    "newline-per-chained-call": false,
     ".": false
   }
 }

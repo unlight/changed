@@ -71,7 +71,7 @@ if (!module.parent) {
     main()
         .then(code => process.exit(code))
         .catch((error: Error) => {
-            console.error(error.message);
+            console.error(error.message); // eslint-disable-line no-console
             process.exit(1);
         });
 }

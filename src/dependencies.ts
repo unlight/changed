@@ -1,54 +1,55 @@
 import { inject } from 'njct';
-import { dbFileName, saveFile } from './utils';
+import { databaseFileName, saveFile } from './utils';
 import fs = require('fs');
 import { resolve } from 'path';
+import { PlainObject } from 'simplytyped'; // tslint:disable-line:no-implicit-dependencies
 const readPkg = require('read-pkg');
 const differenceJson = require('difference-json');
 
-declare type Dict = { [name: string]: { $set: any, $was: any } };
+declare type Dict = { [name: string]: { $set: any; $was: any } };  // tslint:disable-line no-any
 
 declare type Result = {
     result: boolean;
-    update(): void;
     initial: boolean;
-    diff: Dict | null;
+    diff?: Dict;
+    update(): void;
 };
 
-function dependenciesData(cwd?: string): Dict | null {
+function dependenciesData(cwd?: string): Dict | undefined {
     try {
-        var pkg = readPkg.sync(cwd); // tslint:disable-line prefer-const
+        var json = readPkg.sync(cwd); // tslint:disable-line prefer-const
     } catch (error) {
-        return null;
+        return undefined;
     }
-    return pkg.dependencies;
+    return json.dependencies;
 }
 
-function dbDependenciesData(dbFile: string) {
+function databaseDependenciesData(databaseFile: string): PlainObject | undefined {
     try {
-        var result = JSON.parse(fs.readFileSync(dbFile, 'utf8'));
+        var result = JSON.parse(fs.readFileSync(databaseFile, 'utf8'));
     } catch (error) {
-        result = null;
+        result = undefined;
     }
     return result;
 }
 
-export function dependencies(dbFile?: string, cwd?: string): Result {
+export function dependencies(databaseFile: string, cwd?: string): Result {
     const data = inject('dependenciesData', () => dependenciesData)(cwd);
-    if (!dbFile) {
-        dbFile = dbFileName(resolve('pkg.dependencies.json'));
+    if (!databaseFile) {
+        databaseFile = databaseFileName(resolve('pkg.dependencies.json'));
     }
     const existsSync = inject('existsSync', () => fs.existsSync);
     const update = () => {
         const saveFileImpl = inject('saveFile', () => saveFile);
-        saveFileImpl(dbFile!, JSON.stringify(data, null, 2));
+        saveFileImpl(databaseFile, JSON.stringify(data, undefined, 2));
     };
-    if (!existsSync(dbFile)) {
-        return { result: true, update, initial: true, diff: null };
+    if (!existsSync(databaseFile)) {
+        return { result: true, update, initial: true, diff: undefined };
     }
-    const dbData = inject('dbDependenciesData', () => dbDependenciesData)(dbFile);
-    let partialResult = { diff: null, result: true, initial: true };
-    if (dbData && typeof dbData === 'object') {
-        const diff = differenceJson(dbData, data);
+    const databaseData = inject('dbDependenciesData', () => databaseDependenciesData)(databaseFile);
+    let partialResult = { diff: undefined, result: true, initial: true };
+    if (databaseData && typeof databaseData === 'object') {
+        const diff = differenceJson(databaseData, data);
         const result = Object.keys(diff).length > 0;
         partialResult = { diff, result, initial: false };
     }

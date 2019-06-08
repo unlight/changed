@@ -1,4 +1,5 @@
-import { inject, injector } from 'njct';
+/* tslint:disable:insecure-random no-identical-functions */
+import { injector } from 'njct';
 import { file } from './';
 
 beforeEach(() => {
@@ -22,7 +23,7 @@ it('if db file do not exists result should be true', () => {
         }
         return true;
     });
-    const { result, update } = file('foo', 'db');
+    const { result } = file('foo', 'db');
     expect(result).toBeTruthy();
 });
 
@@ -40,7 +41,7 @@ it('filemtime same result should be false', () => {
         }
         return Math.random();
     });
-    const { result, update } = file('target', 'db');
+    const { result } = file('target', 'db');
     expect(result).toBe(false);
 });
 
@@ -58,6 +59,6 @@ it('filemtime is different result should be true', () => {
         }
         return Math.random();
     });
-    const { result, update } = file('target', 'db');
+    const { result } = file('target', 'db');
     expect(result).toBe(true);
 });
