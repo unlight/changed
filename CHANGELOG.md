@@ -1,3 +1,26 @@
+# [3.0.0](https://github.com/unlight/changed/compare/v2.2.0...v3.0.0) (2019-06-08)
+
+
+### Build System
+
+* Updated dependencies ([6d17568](https://github.com/unlight/changed/commit/6d17568))
+
+
+### chore
+
+* Breaking changes ([c6f961e](https://github.com/unlight/changed/commit/c6f961e))
+
+
+### Features
+
+* cli support ([0cf2c6b](https://github.com/unlight/changed/commit/0cf2c6b))
+
+
+### BREAKING CHANGES
+
+* Node.js v8.3+
+* Requires node.js 8+
+
 ## 2.2.0 (2018-12-25)
 
 * feat: Changed publish content (no dev dependencies) ([59a1c22](https://github.com/unlight/changed/commit/59a1c22))
