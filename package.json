@@ -6,7 +6,7 @@
   "typings": "index.d.ts",
   "bin": "cli.js",
   "engines": {
-    "node": ">=8"
+    "node": ">=8.3"
   },
   "scripts": {
     "test": "npm run eslint && npm run tscheck && npm run test:cov && npm run typecov",
