@@ -14,7 +14,7 @@
     "test:w": "jest --runInBand --verbose --watch",
     "test:cov": "npm run test:r -- --collectCoverage",
     "test:d": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand --testMatch \"<rootDir>/src/**/*.spec.ts\"",
-    "typecov": "type-coverage --detail",
+    "typecov": "type-coverage",
     "tscheck": "echo tscheck... && tsc --noEmit",
     "tscheck:w": "npm run tscheck -- --watch",
     "tsclint": "tsc --noEmit --strict --forceConsistentCasingInFileNames --noImplicitReturns --noImplicitThis --noUnusedLocals --noUnusedParameters",

@@ -1,11 +1,21 @@
-is-changed
----
+# is-changed
 Designed to track dependencies in package.json and check file modification time.
 Result is saved to local files, but not memory.
 Useful for task runners and builders, when you need to know is it necessary run rebuild someting.
 
-API
----
+## CLI
+Check dependencies in package.json, run command `npm run build:libs` if changes found.
+Snapshot will be stored in `.libs.dat`.
+```sh
+is-changed --dependencies -t .libs.dat -u "npm run build:libs"
+```
+
+Check file `src/style.scss` time modification, execute `npm run build:style` if time is different from latest saved snapshot to `.style.dat`.
+```sh
+is-changed -f src/style.scss -t .style.dat -u "npm run build:style"
+```
+
+## API
 ```ts
 changed.file(targetFile: string, dbFile?: string): Result
 type Result = {
@@ -24,8 +34,7 @@ type Result = {
 type Dict = { [name: string]: { $set: any, $was: any } };
 ```
 
-EXAMPLES
----
+## EXAMPLES
 ```
 const changed = require('is-changed');
 const Path = require('path');
