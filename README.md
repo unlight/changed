@@ -17,14 +17,14 @@ is-changed -f src/style.scss -t .style.dat -u "npm run build:style"
 
 ## API
 ```ts
-changed.file(targetFile: string, dbFile?: string): Result
+changed.file({ targetFile: string, databaseFile?: string }): Result
 type Result = {
     result: boolean; // is file modified
     update: () => void; // update filemtime
 };
 ```
 ```ts
-changed.dependenciesdependencies(dbFile?: string, cwd?: string): Result
+changed.dependenciesdependencies({ databaseFile?: string, cwd?: string }): Result
 type Result = {
     result: boolean; // has changed
     update: () => void; // update filemtime
