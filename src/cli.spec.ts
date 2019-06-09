@@ -1,4 +1,4 @@
-/* tslint:disable:no-floating-promises prefer-type-cast */
+/* tslint:disable:no-floating-promises prefer-type-cast no-any */
 const showHelp = jest.fn().mockName('showHelp');
 const meowResultDefault: Result = {
     flags: {},

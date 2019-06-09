@@ -1,4 +1,4 @@
-/* tslint:disable:insecure-random no-identical-functions */
+/* tslint:disable:insecure-random no-identical-functions no-any */
 import { file } from './file';
 
 it('if db file do not exists result should be true', () => {

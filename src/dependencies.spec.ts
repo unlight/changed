@@ -1,3 +1,4 @@
+/* tslint:disable:prefer-type-cast no-any */
 import { dependencies } from './dependencies';
 
 it('initial case when db is not exists', () => {
