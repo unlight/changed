@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/unlight/changed/compare/v3.0.0...v3.0.1) (2019-06-09)
+
+
+### Bug Fixes
+
+* cli path ([96fab34](https://github.com/unlight/changed/commit/96fab34))
+
 # [3.0.0](https://github.com/unlight/changed/compare/v2.2.0...v3.0.0) (2019-06-08)
 
 
