@@ -4,9 +4,9 @@ const meowResultDefault: Result = {
     flags: {},
     input: [],
     showHelp: showHelp,
-    help: undefined,
+    help: undefined as any,
     pkg: undefined, // eslint-disable-line unicorn/prevent-abbreviations
-    showVersion: undefined,
+    showVersion: undefined as any,
 };
 let meowResult = { ...meowResultDefault };
 const meow = jest.fn<Result, any>().mockImplementation(() => meowResult); // tslint:disable-line no-any

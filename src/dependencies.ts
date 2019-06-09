@@ -1,5 +1,4 @@
-import { inject } from 'njct';
-import { databaseFileName, saveFile } from './utils';
+import * as utils from './utils';
 import fs = require('fs');
 import { resolve } from 'path';
 import { PlainObject } from 'simplytyped'; // tslint:disable-line:no-implicit-dependencies
@@ -15,7 +14,7 @@ declare type Result = {
     update(): void;
 };
 
-function dependenciesData(cwd?: string): Dict | undefined {
+function packageDependenciesData(cwd?: string): Dict | undefined {
     try {
         var json = readPkg.sync(cwd); // tslint:disable-line prefer-const
     } catch (error) {
@@ -33,20 +32,30 @@ function databaseDependenciesData(databaseFile: string): PlainObject | undefined
     return result;
 }
 
-export function dependencies(databaseFile: string, cwd?: string): Result {
-    const data = inject('dependenciesData', () => dependenciesData)(cwd);
-    if (!databaseFile) {
-        databaseFile = databaseFileName(resolve('pkg.dependencies.json'));
-    }
-    const existsSync = inject('existsSync', () => fs.existsSync);
+type DependenciesArguments = {
+    databaseFile: string;
+    cwd?: string;
+    existsSync?: typeof fs.existsSync;
+    packageDependencies?: typeof packageDependenciesData;
+    saveFile?: typeof utils.saveFile;
+    databaseDependencies?: typeof databaseDependenciesData;
+};
+
+export function dependencies(dependenciesArguments: DependenciesArguments): Result {
+    const { databaseFile, cwd,
+        existsSync = fs.existsSync,
+        packageDependencies = packageDependenciesData,
+        saveFile = utils.saveFile,
+        databaseDependencies = databaseDependenciesData,
+    } = dependenciesArguments;
+    const data = packageDependencies(cwd);
     const update = () => {
-        const saveFileImpl = inject('saveFile', () => saveFile);
-        saveFileImpl(databaseFile, JSON.stringify(data, undefined, 2));
+        saveFile(databaseFile, JSON.stringify(data, undefined, 2));
     };
     if (!existsSync(databaseFile)) {
         return { result: true, update, initial: true, diff: undefined };
     }
-    const databaseData = inject('dbDependenciesData', () => databaseDependenciesData)(databaseFile);
+    const databaseData = databaseDependencies(databaseFile);
     let partialResult = { diff: undefined, result: true, initial: true };
     if (databaseData && typeof databaseData === 'object') {
         const diff = differenceJson(databaseData, data);

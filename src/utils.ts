@@ -1,12 +1,16 @@
-import { inject } from 'njct';
-import fs = require('fs');
-import os = require('os');
+import * as fs from 'fs';
+import * as os from 'os';
 import { dirname } from 'path';
+import * as mkdirp from 'mkdirp';
 const filenamify = require('filenamify');
-import mkdirp = require('mkdirp');
 
-export function databaseFileName(targetFile: string) {
-    const tmpdir = inject('tmpdir', () => os.tmpdir);
+type DatabaseFileNameArguments = {
+    targetFile: string;
+    tmpdir?: typeof os.tmpdir;
+};
+
+export function databaseFileName(databaseFileNameArguments: DatabaseFileNameArguments) {
+    const { targetFile, tmpdir = os.tmpdir } = databaseFileNameArguments;
     return `${tmpdir()}/${encodeURI(filenamify(targetFile))}`;
 }
 

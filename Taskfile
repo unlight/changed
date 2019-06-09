@@ -5,7 +5,7 @@ build() {
     rm -rf dist
     cp -rf src dist && /usr/bin/find dist -name '*.spec.ts' | xargs rm -f
     cd dist
-    tsc index.ts --importHelpers --target es2017 --module commonjs --sourceMap true --skipLibCheck true --declaration true --declarationMap true
+    tsc cli.ts index.ts --importHelpers --target es2017 --module commonjs --sourceMap true --skipLibCheck true --declaration true --declarationMap true
     cd ..
     cp README.md LICENSE package.json dist
 }

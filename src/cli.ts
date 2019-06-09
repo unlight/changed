@@ -44,7 +44,7 @@ export async function main(): Promise<number> {
 
     const changesMatch = [
         [cli => cli.flags.dependencies, cli => dependencies(cli.flags.track)],
-        [cli => cli.flags.file, cli => file(cli.flags.file, cli.flags.track)],
+        [cli => cli.flags.file, cli => file({ targetFile: cli.flags.file, databaseFile: cli.flags.track })],
     ];
 
     const [match, factory] = changesMatch.find(([match]) => match(cli)) || [undefined, Function];
