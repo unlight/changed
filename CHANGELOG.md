@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/unlight/changed/compare/v3.0.1...v3.0.2) (2019-06-10)
+
+
+### Bug Fixes
+
+* Passing params for dependencies function ([4039cdc](https://github.com/unlight/changed/commit/4039cdc))
+
 ## [3.0.1](https://github.com/unlight/changed/compare/v3.0.0...v3.0.1) (2019-06-09)
 
 
