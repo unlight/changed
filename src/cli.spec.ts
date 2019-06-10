@@ -64,3 +64,11 @@ it('flag file without track parameter should throw', async () => {
     meowResult = { ...meowResultDefault, flags: { file: true } };
     await expect(main()).rejects.toThrow('Parameter --track is required');
 });
+
+it('dependencies should be called as object', async () => {
+    meowResult = { ...meowResultDefault, flags: { dependencies: true, update: 'echo 2', track: 'datafile' } };
+    (dependencies as jest.Mock<ReturnType<typeof dependencies>, Parameters<typeof dependencies>>)
+        .mockImplementation(() => ({ result: false, update: jest.fn(), diff: undefined, initial: true }));
+    await main();
+    expect(dependencies).toHaveBeenCalledWith({ databaseFile: 'datafile' });
+});
