@@ -50,12 +50,12 @@ it('flag dependencies with track and has changes and update flag', async () => {
     expect(execSync).toHaveBeenCalledWith('echo 1', expect.anything());
 });
 
-it('dependencies with no changes should return code 1', async () => {
+it('dependencies with no changes should not call update', async () => {
     meowResult = { ...meowResultDefault, flags: { dependencies: true, update: 'echo 2', track: 'datafile' } };
     const update = jest.fn();
     (dependencies as jest.Mock<ReturnType<typeof dependencies>, Parameters<typeof dependencies>>)
         .mockImplementation(() => ({ result: false, update, diff: undefined, initial: true }));
-    await expect(main()).resolves.toEqual(1);
+    expect(await main()).toBe(0);
     expect(update).not.toHaveBeenCalled();
     expect(execSync).not.toHaveBeenCalled();
 });

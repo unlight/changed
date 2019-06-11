@@ -14,7 +14,7 @@ export async function main(): Promise<number> {
                 alias: 'd'
             },
             file: {
-                type: 'boolean',
+                type: 'string',
                 alias: 'f'
             },
             track: {
@@ -62,9 +62,8 @@ export async function main(): Promise<number> {
             execSync(cli.flags.update, { stdio: 'inherit' });
         }
         changes.update();
-        return 0;
     }
-    return 1;
+    return 0;
 }
 
 if (!module.parent) {
