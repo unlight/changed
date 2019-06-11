@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/unlight/changed/compare/v3.0.2...v3.0.3) (2019-06-11)
+
+
+### Bug Fixes
+
+* file is parsed as boolean instead of string ([82c9d0e](https://github.com/unlight/changed/commit/82c9d0e))
+
 ## [3.0.2](https://github.com/unlight/changed/compare/v3.0.1...v3.0.2) (2019-06-10)
 
 
