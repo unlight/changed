@@ -1,58 +1,70 @@
 module.exports = {
-    "root": true,
-    "env": {
-        "node": true,
-        "jest": true,
-        "jest/globals": true,
+    root: true,
+    env: {
+        node: true,
+        jest: true,
+        'jest/globals': true,
     },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 2019,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": false,
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaVersion: 2019,
+        sourceType: 'module',
+        ecmaFeatures: {
+            jsx: false,
         },
-        "project": "tsconfig.json",
+        project: 'tsconfig.json',
+        warnOnUnsupportedTypeScriptVersion: false,
     },
-    "plugins": [
-        "wix-editor",
-        "unicorn",
-        "import",
-        "jest",
-        "@typescript-eslint/tslint",
-        "only-warn",
+    plugins: ['wix-editor', 'unicorn', 'import', 'jest', '@typescript-eslint/tslint', 'only-warn'],
+    extends: [
+        'eslint:recommended',
+        'plugin:unicorn/recommended',
+        'plugin:import/errors',
+        'plugin:import/warnings',
+        'plugin:import/typescript',
+        'plugin:jest/recommended',
     ],
-    "extends": [
-        "eslint:recommended",
-        "plugin:unicorn/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:import/typescript",
-        "plugin:jest/recommended",
-    ],
-    "rules": {
-        "no-unused-vars": 0,
-        "quotes": [1, "single", { "allowTemplateLiterals": true }],
-        "semi": [1, "always"],
+    rules: {
+        'no-unused-vars': 0,
+        quotes: [1, 'single', { allowTemplateLiterals: true }],
+        semi: [1, 'always'],
         // wix-editor
-        "wix-editor/augmented-assignment": 1,
-        "wix-editor/no-instanceof-array": 1,
-        "wix-editor/no-not-not": 1,
-        "wix-editor/no-unneeded-match": 1,
-        "wix-editor/prefer-filter": 1,
-        "wix-editor/prefer-ternary": 1,
-        "wix-editor/return-boolean": 1,
-        "wix-editor/simplify-boolean-expression": 1,
+        'wix-editor/augmented-assignment': 1,
+        'wix-editor/no-instanceof-array': 1,
+        'wix-editor/no-not-not': 1,
+        'wix-editor/no-unneeded-match': 1,
+        'wix-editor/prefer-filter': 1,
+        'wix-editor/prefer-ternary': 1,
+        'wix-editor/return-boolean': 1,
+        'wix-editor/simplify-boolean-expression': 1,
         // unicorn
-        "unicorn/import-index": 0,
-        "unicorn/catch-error-name": 0,
+        'unicorn/import-index': 0,
+        'unicorn/catch-error-name': 0,
         // import
-        "import/newline-after-import": 0,
-        "import/no-duplicates": 1,
-        "import/max-dependencies": [1, { "max": 10 }],
+        'import/newline-after-import': 0,
+        'import/no-duplicates': 1,
+        'import/max-dependencies': [1, { max: 10 }],
         // tslint
-        "@typescript-eslint/tslint/config": [1, {
-            lintFile: "./tslint.json",
-        }],
-    }
+        '@typescript-eslint/tslint/config': [
+            1,
+            {
+                lintFile: './tslint.json',
+            },
+        ],
+    },
+    overrides: [
+        {
+            files: ['*.spec.ts', '**/testing/**/*.ts'],
+            rules: {
+                'consistent-return': 0,
+                'max-lines': 0,
+                '@typescript-eslint/no-explicit-any': 0,
+                '@typescript-eslint/no-floating-promises': 0,
+                '@typescript-eslint/no-non-null-assertion': 0,
+                '@typescript-eslint/camelcase': 0,
+                'import/max-dependencies': 0,
+                'sonarjs/no-duplicate-string': 0,
+            },
+        },
+    ],
 };

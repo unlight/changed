@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2017",
     "module": "commonjs",
     "moduleResolution": "node",
     "importHelpers": true,
@@ -10,19 +10,13 @@
     "emitDecoratorMetadata": false,
     "outDir": "dist",
     "pretty": true,
+    "esModuleInterop": true,
     "removeComments": false,
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "skipLibCheck": true,
-    "lib": [
-      "esnext"
-    ]
+    "lib": ["esnext"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules/**"
-  ]
+  "include": ["src/**/*.ts"]
 }

@@ -5,7 +5,7 @@ import { PlainObject } from 'simplytyped'; // tslint:disable-line:no-implicit-de
 const readPkg = require('read-pkg');
 const differenceJson = require('difference-json');
 
-declare type Dict = { [name: string]: { $set: any; $was: any } };  // tslint:disable-line no-any
+declare type Dict = { [name: string]: { $set: any; $was: any } }; // tslint:disable-line no-any
 
 declare type Result = {
     result: boolean;
@@ -42,7 +42,9 @@ type DependenciesArguments = {
 };
 
 export function dependencies(dependenciesArguments: DependenciesArguments): Result {
-    const { databaseFile, cwd,
+    const {
+        databaseFile,
+        cwd,
         existsSync = fs.existsSync,
         packageDependencies = packageDependenciesData,
         saveFile = utils.saveFile,

@@ -11,7 +11,7 @@ it('if db file do not exists result should be true', () => {
     const { result } = file({
         targetFile: 'foo',
         databaseFile: 'db',
-        existsSync
+        existsSync,
     });
     expect(result).toBeTruthy();
 });

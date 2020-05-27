@@ -21,7 +21,8 @@ type FileArguments = {
 
 export function file(fileArguments: FileArguments): Result {
     const { targetFile } = fileArguments;
-    const { databaseFile = utils.databaseFileName({ targetFile }),
+    const {
+        databaseFile = utils.databaseFileName({ targetFile }),
         existsSync = fs.existsSync,
         fileMtime = fsfileMtime,
         saveFile = utils.saveFile,

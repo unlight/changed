@@ -48,7 +48,6 @@
     "no-increment-decrement": false,
     "no-unnecessary-bind": false,
     "non-literal-fs-path": false,
-    "newline-per-chained-call": false,
-    ".": false
+    "newline-per-chained-call": false
   }
 }

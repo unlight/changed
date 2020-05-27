@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import * as os from 'os';
+import fs from 'fs';
+import os from 'os';
 import { dirname } from 'path';
-import * as mkdirp from 'mkdirp';
+import mkdirp from 'mkdirp';
 const filenamify = require('filenamify');
 
 type DatabaseFileNameArguments = {

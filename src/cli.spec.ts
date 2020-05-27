@@ -1,4 +1,3 @@
-/* tslint:disable:no-floating-promises prefer-type-cast no-any */
 const showHelp = jest.fn().mockName('showHelp');
 const meowResultDefault: Result = {
     flags: {},
@@ -41,20 +40,30 @@ it('flag dependencies without track', async () => {
 });
 
 it('flag dependencies with track and has changes and update flag', async () => {
-    meowResult = { ...meowResultDefault, flags: { dependencies: true, update: 'echo 1', track: 'datafile' } };
+    meowResult = {
+        ...meowResultDefault,
+        flags: { dependencies: true, update: 'echo 1', track: 'datafile' },
+    };
     const update = jest.fn();
-    (dependencies as jest.Mock<ReturnType<typeof dependencies>, Parameters<typeof dependencies>>)
-        .mockImplementation(() => ({ result: true, update, diff: undefined, initial: true }));
+    (dependencies as jest.Mock<
+        ReturnType<typeof dependencies>,
+        Parameters<typeof dependencies>
+    >).mockImplementation(() => ({ result: true, update, diff: undefined, initial: true }));
     await expect(main()).resolves.toEqual(0);
     expect(update).toHaveBeenCalledWith();
     expect(execSync).toHaveBeenCalledWith('echo 1', expect.anything());
 });
 
 it('dependencies with no changes should not call update', async () => {
-    meowResult = { ...meowResultDefault, flags: { dependencies: true, update: 'echo 2', track: 'datafile' } };
+    meowResult = {
+        ...meowResultDefault,
+        flags: { dependencies: true, update: 'echo 2', track: 'datafile' },
+    };
     const update = jest.fn();
-    (dependencies as jest.Mock<ReturnType<typeof dependencies>, Parameters<typeof dependencies>>)
-        .mockImplementation(() => ({ result: false, update, diff: undefined, initial: true }));
+    (dependencies as jest.Mock<
+        ReturnType<typeof dependencies>,
+        Parameters<typeof dependencies>
+    >).mockImplementation(() => ({ result: false, update, diff: undefined, initial: true }));
     expect(await main()).toBe(0);
     expect(update).not.toHaveBeenCalled();
     expect(execSync).not.toHaveBeenCalled();
@@ -66,9 +75,19 @@ it('flag file without track parameter should throw', async () => {
 });
 
 it('dependencies should be called as object', async () => {
-    meowResult = { ...meowResultDefault, flags: { dependencies: true, update: 'echo 2', track: 'datafile' } };
-    (dependencies as jest.Mock<ReturnType<typeof dependencies>, Parameters<typeof dependencies>>)
-        .mockImplementation(() => ({ result: false, update: jest.fn(), diff: undefined, initial: true }));
+    meowResult = {
+        ...meowResultDefault,
+        flags: { dependencies: true, update: 'echo 2', track: 'datafile' },
+    };
+    (dependencies as jest.Mock<
+        ReturnType<typeof dependencies>,
+        Parameters<typeof dependencies>
+    >).mockImplementation(() => ({
+        result: false,
+        update: jest.fn(),
+        diff: undefined,
+        initial: true,
+    }));
     await main();
     expect(dependencies).toHaveBeenCalledWith({ databaseFile: 'datafile' });
 });
