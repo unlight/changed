@@ -1,3 +1,13 @@
+# [4.0.0](https://github.com/unlight/changed/compare/v3.0.3...v4.0.0) (2020-05-27)
+
+
+* chore!: Updated dependencies ([0756530](https://github.com/unlight/changed/commit/0756530ee2ee4b2197d4a195828a3694e6264dbd))
+
+
+### BREAKING CHANGES
+
+* Requires Node v10+
+
 ## [3.0.3](https://github.com/unlight/changed/compare/v3.0.2...v3.0.3) (2019-06-11)
 
 
