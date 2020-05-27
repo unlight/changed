@@ -2,12 +2,17 @@
 PATH="$PWD/node_modules/.bin":$PATH
 
 build() {
-    rm -rf dist
-    cp -rf src dist && /usr/bin/find dist -name '*.spec.ts' | xargs rm -f
+    set -x
+    rm -rfv dist
+    cp -rfv src dist
+    cat tsconfig.json | jq 'del(.include, .compilerOptions.outDir)' > dist/tsconfig.json
+    cp -v README.md LICENSE package.json dist
     cd dist
-    tsc cli.ts index.ts --importHelpers --target es2017 --module commonjs --sourceMap true --skipLibCheck true --declaration true --declarationMap true
+    /usr/bin/find . -name '*.spec.ts' | xargs rm -rvf
+    tsc -p .
+    rm -rvf tsconfig.json
     cd ..
-    cp README.md LICENSE package.json dist
+    set +x
 }
 
 "$@"

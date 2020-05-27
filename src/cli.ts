@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import meow from 'meow';
+import { AnyFlags } from 'meow';
 import { dependencies } from './dependencies';
 import { execSync } from 'child_process';
 import { file } from './file';
@@ -7,7 +8,7 @@ import { file } from './file';
 const scriptName = 'is-changed';
 
 export async function main(): Promise<number> {
-    const cliOptions: meow.Options = {
+    const cliOptions: meow.Options<AnyFlags> = {
         flags: {
             dependencies: {
                 type: 'boolean',
@@ -62,9 +63,9 @@ export async function main(): Promise<number> {
         throw new Error('Parameter --track is required');
     }
 
-    const changes = factory(cli);
+    const changes = factory!(cli);
     if (changes.result) {
-        if (cli.flags.update) {
+        if (typeof cli.flags.update === 'string' && cli.flags.update) {
             execSync(cli.flags.update, { stdio: 'inherit' });
         }
         changes.update();

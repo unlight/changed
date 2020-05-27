@@ -1,14 +1,15 @@
 const showHelp = jest.fn().mockName('showHelp');
-const meowResultDefault: Result = {
+const meowResultDefault: Result<any> = {
     flags: {},
     input: [],
     showHelp: showHelp,
     help: undefined as any,
-    pkg: undefined, // eslint-disable-line unicorn/prevent-abbreviations
+    pkg: {}, // eslint-disable-line unicorn/prevent-abbreviations
     showVersion: undefined as any,
+    unnormalizedFlags: {},
 };
 let meowResult = { ...meowResultDefault };
-const meow = jest.fn<Result, any>().mockImplementation(() => meowResult); // tslint:disable-line no-any
+const meow = jest.fn().mockImplementation(() => meowResult); // tslint:disable-line no-any
 const processExit = jest.spyOn(process, 'exit').mockImplementation(<any>((code) => code)); // tslint:disable-line no-any
 jest.doMock('meow', () => meow);
 jest.mock('./dependencies');

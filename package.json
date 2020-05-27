@@ -22,6 +22,7 @@
     "eslint": "eslint src --ext ts",
     "eslint:fix": "eslint src --ext ts --fix",
     "tslint:fix": "tslint -p tsconfig.json --fix",
+    "lint:fix": "npm run tslint:fix || true && npm run eslint:fix",
     "semantic-release": "semantic-release",
     "prepublishOnly": "sed -i -e 's/devDependencies/_devDependencies/g' package.json",
     "build": "sh Taskfile build",

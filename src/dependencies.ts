@@ -17,8 +17,8 @@ declare type Result = {
 function packageDependenciesData(cwd?: string): Dict | undefined {
     try {
         var json = readPkg.sync(cwd); // tslint:disable-line prefer-const
-    } catch (error) {
-        return undefined;
+    } catch  {
+        return;
     }
     return json.dependencies;
 }
@@ -26,7 +26,7 @@ function packageDependenciesData(cwd?: string): Dict | undefined {
 function databaseDependenciesData(databaseFile: string): PlainObject | undefined {
     try {
         var result = JSON.parse(fs.readFileSync(databaseFile, 'utf8'));
-    } catch (error) {
+    } catch  {
         result = undefined;
     }
     return result;
